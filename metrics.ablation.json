@@ -1,0 +1,547 @@
+{
+  "_meta": {
+    "description": "消融实验汇总。单批次：6 组全部在 residual 空间聚合下运行，同种子、同数据、同掩码生成顺序，任意两组可直接相减。",
+    "baseline_tag": "fin_final",
+    "baseline_label": "完整模型（residual 聚合）· 基准",
+    "generated_at": "2026-09-26 10:44:31",
+    "n_runs": 6,
+    "provenance": "由 .workbuddy-ai/ablation/merge_ablation.py 合并生成；各组原始文件为 metrics.fin_*.json，其 run_config 字段记录了完整配置（含 epochs_run / early_stopped，用于确认 6 组均跑满 400 轮且未早停）。",
+    "common_config": {
+      "data": {
+        "source": "power_hourly",
+        "start": 20250821,
+        "end": 20250920,
+        "n_hours": 744,
+        "n_stations": 8,
+        "n_vars": 6,
+        "data_signature": "362550396a0adcf5"
+      },
+      "window": {
+        "window_h": 72,
+        "stride_h": 12,
+        "n_windows": {
+          "train": 39,
+          "val": 9,
+          "test": 9
+        }
+      },
+      "missing": {
+        "mcar_rate": 0.15,
+        "block_prob": 0.3,
+        "block_maxlen_h": 24
+      },
+      "model": {
+        "hidden": 64,
+        "n_layers": 3,
+        "ksize": 5,
+        "sigma_km": 350.0,
+        "spatial_mode": "residual",
+        "ablate_no_spatial": false,
+        "ablate_no_var": false
+      },
+      "train": {
+        "epochs": 400,
+        "patience": 400,
+        "batch": 16,
+        "lr": 0.002,
+        "seed": 42,
+        "epochs_run": 400,
+        "early_stopped": false
+      },
+      "phys": {
+        "enabled": [
+          "time_smooth"
+        ],
+        "weights": {},
+        "phys_ablate": false
+      },
+      "params": 15661
+    }
+  },
+  "results": {
+    "fin_final": {
+      "label": "完整模型（residual 聚合）· 基准",
+      "extra_flags": [],
+      "MAE": 6.067077159881592,
+      "RMSE": 19.029260635375977,
+      "R2": 0.9592977498725457,
+      "n_eval": 5974,
+      "params": 15661,
+      "per_var_MAE": [
+        0.7216309309005737,
+        2.99212908744812,
+        0.2702872157096863,
+        0.5288991928100586,
+        0.14463059604167938,
+        31.072546005249023
+      ],
+      "per_var_RMSE": [
+        1.0480881929397583,
+        4.536362648010254,
+        0.47380906343460083,
+        0.669701099395752,
+        0.3456900417804718,
+        45.83863067626953
+      ],
+      "source_metrics_file": "metrics.fin_final.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "residual",
+          "ablate_no_spatial": false,
+          "ablate_no_var": false
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [
+            "time_smooth"
+          ],
+          "weights": {},
+          "phys_ablate": false
+        },
+        "params": 15661
+      },
+      "delta_R2_vs_baseline": 0.0,
+      "delta_MAE_vs_baseline": 0.0
+    },
+    "fin_nophys": {
+      "label": "去除物理约束（time_smooth）",
+      "extra_flags": [
+        "--phys_ablate"
+      ],
+      "MAE": 6.006818771362305,
+      "RMSE": 19.09880256652832,
+      "R2": 0.9589997167556477,
+      "n_eval": 5974,
+      "params": 15661,
+      "per_var_MAE": [
+        0.7611120343208313,
+        2.9840147495269775,
+        0.27064818143844604,
+        0.4850413501262665,
+        0.14314404129981995,
+        30.731182098388672
+      ],
+      "per_var_RMSE": [
+        1.0866599082946777,
+        4.4799628257751465,
+        0.46959781646728516,
+        0.6213198900222778,
+        0.3474833071231842,
+        46.01302719116211
+      ],
+      "source_metrics_file": "metrics.fin_nophys.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "residual",
+          "ablate_no_spatial": false,
+          "ablate_no_var": false
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [],
+          "weights": {},
+          "phys_ablate": true
+        },
+        "params": 15661
+      },
+      "delta_R2_vs_baseline": -0.00029803311689802214,
+      "delta_MAE_vs_baseline": -0.06025838851928711
+    },
+    "fin_nospatial": {
+      "label": "去除站点空间图",
+      "extra_flags": [
+        "--ablate_no_spatial"
+      ],
+      "MAE": 6.0116143226623535,
+      "RMSE": 20.364826202392578,
+      "R2": 0.9533838951031804,
+      "n_eval": 5974,
+      "params": 15661,
+      "per_var_MAE": [
+        0.85536128282547,
+        3.1913061141967773,
+        0.25545212626457214,
+        0.451664000749588,
+        0.13568711280822754,
+        30.521806716918945
+      ],
+      "per_var_RMSE": [
+        1.233890175819397,
+        4.720376491546631,
+        0.48615187406539917,
+        0.5761836767196655,
+        0.321614533662796,
+        49.068199157714844
+      ],
+      "source_metrics_file": "metrics.fin_nospatial.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "residual",
+          "ablate_no_spatial": true,
+          "ablate_no_var": false
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [
+            "time_smooth"
+          ],
+          "weights": {},
+          "phys_ablate": false
+        },
+        "params": 15661
+      },
+      "delta_R2_vs_baseline": -0.005913854769365234,
+      "delta_MAE_vs_baseline": -0.05546283721923828
+    },
+    "fin_smooth02": {
+      "label": "物理约束权重加大至 0.2",
+      "extra_flags": [
+        "--phys_weight time_smooth=0.2"
+      ],
+      "MAE": 6.238524436950684,
+      "RMSE": 20.519607543945312,
+      "R2": 0.9526725997458891,
+      "n_eval": 5974,
+      "params": 15661,
+      "per_var_MAE": [
+        0.9170323610305786,
+        2.9369630813598633,
+        0.27056729793548584,
+        0.49142035841941833,
+        0.15899164974689484,
+        31.9637508392334
+      ],
+      "per_var_RMSE": [
+        1.297328233718872,
+        4.448856830596924,
+        0.4726686179637909,
+        0.6376746892929077,
+        0.3838229477405548,
+        49.46659469604492
+      ],
+      "source_metrics_file": "metrics.fin_smooth02.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "residual",
+          "ablate_no_spatial": false,
+          "ablate_no_var": false
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [
+            "time_smooth"
+          ],
+          "weights": {
+            "time_smooth": 0.2
+          },
+          "phys_ablate": false
+        },
+        "params": 15661
+      },
+      "delta_R2_vs_baseline": -0.006625150126656543,
+      "delta_MAE_vs_baseline": 0.1714472770690918
+    },
+    "fin_novar": {
+      "label": "去除变量物理图",
+      "extra_flags": [
+        "--ablate_no_var"
+      ],
+      "MAE": 8.700700759887695,
+      "RMSE": 31.77871322631836,
+      "R2": 0.886486580155781,
+      "n_eval": 5974,
+      "params": 15661,
+      "per_var_MAE": [
+        1.2673289775848389,
+        4.446049690246582,
+        0.5697245001792908,
+        0.4934959411621094,
+        0.24268028140068054,
+        44.21739959716797
+      ],
+      "per_var_RMSE": [
+        1.7813664674758911,
+        6.571677207946777,
+        0.8597373962402344,
+        0.6232443451881409,
+        0.7117591500282288,
+        76.64262390136719
+      ],
+      "source_metrics_file": "metrics.fin_novar.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "residual",
+          "ablate_no_spatial": false,
+          "ablate_no_var": true
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [
+            "time_smooth"
+          ],
+          "weights": {},
+          "phys_ablate": false
+        },
+        "params": 15661
+      },
+      "delta_R2_vs_baseline": -0.07281116971676471,
+      "delta_MAE_vs_baseline": 2.6336236000061035
+    },
+    "fin_avg": {
+      "label": "改用上游原版平均聚合（avg）",
+      "extra_flags": [
+        "--spatial_mode avg"
+      ],
+      "MAE": 14.99096965789795,
+      "RMSE": 53.051326751708984,
+      "R2": 0.6836505655027871,
+      "n_eval": 5974,
+      "params": 15658,
+      "per_var_MAE": [
+        3.0687153339385986,
+        11.077408790588379,
+        1.4940094947814941,
+        1.7550749778747559,
+        0.4235791265964508,
+        70.67169952392578
+      ],
+      "per_var_RMSE": [
+        3.962932586669922,
+        14.83464527130127,
+        1.9638088941574097,
+        2.71386456489563,
+        1.0639883279800415,
+        127.51451873779297
+      ],
+      "source_metrics_file": "metrics.fin_avg.json",
+      "run_config": {
+        "data": {
+          "source": "power_hourly",
+          "start": 20250821,
+          "end": 20250920,
+          "n_hours": 744,
+          "n_stations": 8,
+          "n_vars": 6,
+          "data_signature": "362550396a0adcf5"
+        },
+        "window": {
+          "window_h": 72,
+          "stride_h": 12,
+          "n_windows": {
+            "train": 39,
+            "val": 9,
+            "test": 9
+          }
+        },
+        "missing": {
+          "mcar_rate": 0.15,
+          "block_prob": 0.3,
+          "block_maxlen_h": 24
+        },
+        "model": {
+          "hidden": 64,
+          "n_layers": 3,
+          "ksize": 5,
+          "sigma_km": 350.0,
+          "spatial_mode": "avg",
+          "ablate_no_spatial": false,
+          "ablate_no_var": false
+        },
+        "train": {
+          "epochs": 400,
+          "patience": 400,
+          "batch": 16,
+          "lr": 0.002,
+          "seed": 42,
+          "epochs_run": 400,
+          "early_stopped": false
+        },
+        "phys": {
+          "enabled": [
+            "time_smooth"
+          ],
+          "weights": {},
+          "phys_ablate": false
+        },
+        "params": 15658
+      },
+      "delta_R2_vs_baseline": -0.27564718436975855,
+      "delta_MAE_vs_baseline": 8.923892498016357
+    }
+  }
+}
